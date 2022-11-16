@@ -7,7 +7,7 @@ const app = express();
 const usersRoute = require("./routes/usersRoute");
 
 
-app.set("port", process.env.PORT || 3306);
+app.set("port", process.env.Port || 3306);
 
 //The use of modules
 app.use(express.json());
