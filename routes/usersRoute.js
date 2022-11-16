@@ -133,15 +133,17 @@ router.post('/register', bodyParser.json(),async (req, res) => {
 
 // lOGIN
 router.post('/login',bodyParser.json(),(req,res) => {
-  let sql = `SELECT * FROM users WHERE user_email = ?`
+  let sql = `SELECT * FROM users WHERE user_email LIKE ?`
   let email =  req.body.user_email
   db.query(sql,email, async (err,results) => {
     if(err) throw err
-   if(results.length === null ){
+    console.log(results.length)
+   if(results.length === 0 ){
       res.json({
         msg: "Email does not exist"
       })
     }else{
+        console.log(results)
       const isMatch = await bcrypt.compare(req.body.user_password, results[0].user_password);
       if(!isMatch){
         res.json({
