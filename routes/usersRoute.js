@@ -63,9 +63,12 @@ router.post('/register', bodyParser.json(),async (req, res) => {
       let mailTransporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
-                    user: "jared.sabindi@gamil.com",
-                    pass: "tpwhadwimrtfazja"
-                }
+                    user: "jared.sabindi@gmail.com",
+                    pass: "hwkvzcftvpuepjwo"
+                },
+                tls: {
+                  rejectUnauthorized: false
+              }
             });
             
     bd.user_password = await bcrypt.hash(bd.user_password, 10)
@@ -74,7 +77,7 @@ router.post('/register', bodyParser.json(),async (req, res) => {
       bd.user_type= 'client'
     }
     let details = {
-      from: "rared.isaacs@gmail.com",
+      from: "jared.sabindi@gmail.com",
       to: `${bd.user_email}`,
       subject: "Sabindi Group Global",
       text: `Welcome To Sabindi Group Global ${bd.user_name} ${bd.user_surname}`
@@ -131,7 +134,7 @@ router.post('/register', bodyParser.json(),async (req, res) => {
 
   });
 
-// lOGIN
+// lOGIN --
 router.post('/login',bodyParser.json(),(req,res) => {
   let sql = `SELECT * FROM users WHERE user_email LIKE ?`
   let email =  req.body.user_email
